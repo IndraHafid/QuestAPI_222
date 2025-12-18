@@ -3,7 +3,13 @@ package com.example.questapi_222.uicontroller
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.questapi_222.uicontroller.route.DestinasiEntry
+import com.example.questapi_222.uicontroller.route.DestinasiHome
+import com.example.questapi_222.view.EntrySiswaScreen
+import com.example.questapi_222.view.HomeScreen
 
 @Composable
 fun DataSiswaApp(navController: NavHostController = rememberNavController(),
@@ -11,3 +17,26 @@ fun DataSiswaApp(navController: NavHostController = rememberNavController(),
     HostNavigasi(navController = navController)
 }
 
+@Composable
+fun HostNavigasi(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
+    NavHost(navController = navController, startDestination = DestinasiHome.route,
+        modifier = modifier) {
+        composable(DestinasiHome.route) {
+            HomeScreen(
+                navigateToItemEntry = {
+                    navController.navigate(DestinasiEntry.route)
+                },
+                navigateToItemUpdate = { id ->
+                    // future: update screen
+                }
+            )
+        }
+        composable(DestinasiEntry.route) {
+            EntrySiswaScreen(navigateBack = { navController.navigate(DestinasiHome
+                .route) })
+        }
+    }
+}
