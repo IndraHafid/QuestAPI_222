@@ -2,17 +2,27 @@ package com.example.questapi_222.view
 
 import android.os.Build
 import androidx.annotation.RequiresExtension
+import androidx.compose.foundation.layout.height
 
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -30,6 +40,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.questapi_222.R
+import com.example.questapi_222.modeldata.DataSiswa
 import com.example.questapi_222.uicontroller.route.DestinasiHome
 import com.example.questapi_222.viewmodel.HomeViewModel
 import com.example.questapi_222.viewmodel.provider.PenyediaViewModel
@@ -130,6 +141,70 @@ fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
         Text(text = stringResource(R.string.error))
         Button(onClick = retryAction) {
             Text(stringResource(R.string.retry))
+        }
+    }
+}
+
+@Composable
+fun DaftarSiswa(
+    siswa: List<DataSiswa>,
+    //edit 2.1 : tambahkan parameter onSiswaClick
+    onSiswaClick: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    LazyColumn(modifier = modifier) {
+        items(items = siswa, key = { it.id }) { person ->
+            ItemSiswa(
+                siswa = person,
+                modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.padding_small))
+                    //edit 2.2 : jadikan item siswa menjadi clickable
+                    .clickable { onSiswaClick(person.id) }
+            )
+        }
+    }
+}
+
+@Composable
+fun ItemSiswa(
+    siswa: DataSiswa,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier,
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(dimensionResource(id = R.dimen.padding_large)),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small))
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = siswa.nama,
+                    style = MaterialTheme.typography.titleLarge
+                )
+            }
+
+            Spacer(Modifier.height(8.dp))
+
+            Row {
+                Icon(
+                    imageVector = Icons.Default.Phone,
+                    contentDescription = null
+                )
+                Text(
+                    text = siswa.telpon,
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+
+            Text(
+                text = siswa.alamat,
+                style = MaterialTheme.typography.titleMedium
+            )
         }
     }
 }
