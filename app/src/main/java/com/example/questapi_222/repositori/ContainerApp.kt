@@ -52,3 +52,13 @@ class DefaultContainerApp : ContainerApp {
     }
 }
 
+// 3. Class Application untuk inisialisasi Container di tingkat aplikasi
+class AplikasiDataSiswa : android.app.Application() {
+    lateinit var container: ContainerApp
+
+    override fun onCreate() {
+        super.onCreate()
+        // Inisialisasi container saat aplikasi dijalankan
+        this.container = DefaultContainerApp()
+    }
+}
