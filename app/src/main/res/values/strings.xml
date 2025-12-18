@@ -1,0 +1,27 @@
+<resources>
+
+    <!-- App -->
+    <string name="app_name">QuestAPI_222</string>
+    <string name="home">Data Siswa</string>
+
+    <!-- Navigation / TopBar -->
+    <string name="entry_siswa">Entry Siswa</string>
+    <string name="back">Kembali</string>
+
+    <!-- Form Entry -->
+    <string name="nama">Nama</string>
+    <string name="alamat">Alamat</string>
+    <string name="telpon">Telepon</string>
+
+    <!-- Button -->
+    <string name="btn_submit">Simpan</string>
+
+    <!-- Validation -->
+    <string name="required_field">* Wajib diisi</string>
+
+    <!-- Common -->
+    <string name="loading">Memuat data...</string>
+    <string name="retry">Coba lagi</string>
+    <string name="error">Terjadi kesalahan</string>
+
+</resources>
