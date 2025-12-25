@@ -6,12 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.questapi_222.modeldata.DetailSiswa
 import com.example.questapi_222.modeldata.UIStateSiswa
 import com.example.questapi_222.modeldata.toUiStateSiswa
 import com.example.questapi_222.repositori.RepositoryDataSiswa
 import com.example.questapi_222.uicontroller.route.DestinasiDetail
 import kotlinx.coroutines.launch
-
 class EditViewModel(savedStateHandle: SavedStateHandle, private val repositoryDataSiswa:
 RepositoryDataSiswa): ViewModel() {
     var uiStateSiswa by mutableStateOf(UIStateSiswa())
@@ -24,3 +24,16 @@ RepositoryDataSiswa): ViewModel() {
                 .toUiStateSiswa(true)
         }
     }
+
+    fun updateUiState(detailSiswa: DetailSiswa) {
+        uiStateSiswa =
+            UIStateSiswa(detailSiswa = detailSiswa, isEntryValid = validasiInput(detailSiswa))
+    }
+
+    private fun validasiInput(uiState: DetailSiswa = uiStateSiswa.detailSiswa ): Boolean {
+        return with(uiState) {
+            nama.isNotBlank() && alamat.isNotBlank() && telpon.isNotBlank()
+        }
+    }
+
+}
