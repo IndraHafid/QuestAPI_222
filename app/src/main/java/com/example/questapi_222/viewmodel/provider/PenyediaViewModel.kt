@@ -18,7 +18,7 @@ fun CreationExtras.aplikasiDataSiswa(): AplikasiDataSiswa = (
         )
 
 object PenyediaViewModel {
-    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+
     val Factory = viewModelFactory {
         initializer {
             HomeViewModel(aplikasiDataSiswa().container.repositoryDataSiswa)
