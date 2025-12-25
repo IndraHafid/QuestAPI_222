@@ -1,6 +1,7 @@
 @file:OptIn(InternalSerializationApi::class)
 package com.example.questapi_222.viewmodel
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -13,6 +14,7 @@ import com.example.questapi_222.uicontroller.route.DestinasiDetail
 import kotlinx.coroutines.launch
 import kotlinx.serialization.InternalSerializationApi
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 
 sealed interface StatusUIDetail {
@@ -49,4 +51,14 @@ RepositoryDataSiswa):ViewModel() {
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
+    suspend fun hapusSatuSiswa() {
+        val resp: Response<Void> = repositoryDataSiswa.hapusSatuSiswa(idSiswa)
+
+        if (resp.isSuccessful){
+            println("Sukses Hapus Data : ${resp.message()}")
+        }else{
+            println("Gagal Hapus Data : ${resp.errorBody()}")
+        }
+    }
 }
